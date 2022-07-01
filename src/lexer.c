@@ -52,54 +52,52 @@ TokenList* create_tokens(char* text) {
                 if (dot_count == 0) {  // No decimal places = integer
                     Token* token = token_create(T_INT, str_num, line_num, "\0");
                     token_list_add_token(tokenList, token);
-                    current_char = lexer_advance(&index, text);
                     free(str_num);
                     break;
                 }
                 else {
                     Token* token = token_create(T_FLOAT, str_num, line_num, "\0");
                     token_list_add_token(tokenList, token);
-                    current_char = lexer_advance(&index, text);
                     free(str_num);
                     break;
                 }
             }
             case '+': {
-                Token* token = token_create(T_PLUS, "+", line_num, "\0");
+                Token* token = token_create(T_PLUS, "\0", line_num, "\0");
                 token_list_add_token(tokenList, token);
                 current_char = lexer_advance(&index, text);
                 break;
             }
             case '-': {
-                Token* token = token_create(T_MINUS, "-", line_num, "\0");
+                Token* token = token_create(T_MINUS, "\0", line_num, "\0");
                 token_list_add_token(tokenList, token);
                 current_char = lexer_advance(&index, text);
                 ++index;
                 break;
             }
             case '*': {
-                Token* token = token_create(T_MUL, "*", line_num, "\0");
+                Token* token = token_create(T_MUL, "\0", line_num, "\0");
                 token_list_add_token(tokenList, token);
                 current_char = lexer_advance(&index, text);
                 ++index;
                 break;
             }
             case '/': {
-                Token* token = token_create(T_DIV, "/", line_num, "\0");
+                Token* token = token_create(T_DIV, "\0", line_num, "\0");
                 token_list_add_token(tokenList, token);
                 current_char = lexer_advance(&index, text);
                 ++index;
                 break;
             }
             case '(': {
-                Token* token = token_create(T_LBRAC, "(", line_num, "\0");
+                Token* token = token_create(T_LBRAC, "\0", line_num, "\0");
                 token_list_add_token(tokenList, token);
                 current_char = lexer_advance(&index, text);
                 ++index;
                 break;
             }
             case ')': {
-                Token* token = token_create(T_RBRAC, ")", line_num, "\0");
+                Token* token = token_create(T_RBRAC, "\0", line_num, "\0");
                 token_list_add_token(tokenList, token);
                 current_char = lexer_advance(&index, text);
                 ++index;
@@ -123,10 +121,12 @@ char lexer_advance(int* index, const char* text) {
 void print_tokens(TokenList* tokenList) {
     for(int i = 0; i < tokenList->index; ++i) {
         if (strncmp(tokenList->tokens[i]->error, "\0", 1) == 0) {
-            printf("( %s : %s )\n", tokenList->tokens[i]->type, tokenList->tokens[i]->value);
+            if (strncmp(tokenList->tokens[i]->value, "\0", 1) != 0)
+                printf("(%s : %s)\n", tokenList->tokens[i]->type, tokenList->tokens[i]->value);
+            else printf("(%s)\n", tokenList->tokens[i]->type);
         }
         else {
-            printf("\n%s at line %d", tokenList->tokens[i]->error, tokenList->tokens[i]->line);
+            printf("\n%s '%s' at line %d\n", tokenList->tokens[i]->error, tokenList->tokens[i]->value, tokenList->tokens[i]->line);
             break;
         }
     }

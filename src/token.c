@@ -32,17 +32,11 @@ void token_list_add_token(TokenList* tokenList, Token* token) {
 }
 
 void token_list_destroy(TokenList* tokenList) {
-    printf("Destroying tokens.\n");
-    for(int i = 0; i < tokenList->size; ++i) {  // Iterates through all tokens in the list to free its member variable memory
+    for(int i = 0; i < tokenList->index; ++i) {  // Iterates through all tokens in the list to free its member variable memory
         free(tokenList->tokens[i]->type);
-        printf("token[%d]->type freed\n", i);
         free(tokenList->tokens[i]->value);
-        printf("token[%d]->value freed\n", i);
         free(tokenList->tokens[i]->error);
-        printf("token[%d]->error freed\n", i);
         free(tokenList->tokens[i]);
-        printf("token[%d] freed\n", i);
     }
     free(tokenList->tokens);
-    printf("tokensList of tokens freed\n");
 }
