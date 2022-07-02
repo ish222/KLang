@@ -72,35 +72,30 @@ TokenList* create_tokens(char* text) {
                 Token* token = token_create(T_MINUS, "\0", line_num, "\0");
                 token_list_add_token(tokenList, token);
                 current_char = lexer_advance(&index, text);
-                ++index;
                 break;
             }
             case '*': {
                 Token* token = token_create(T_MUL, "\0", line_num, "\0");
                 token_list_add_token(tokenList, token);
                 current_char = lexer_advance(&index, text);
-                ++index;
                 break;
             }
             case '/': {
                 Token* token = token_create(T_DIV, "\0", line_num, "\0");
                 token_list_add_token(tokenList, token);
                 current_char = lexer_advance(&index, text);
-                ++index;
                 break;
             }
             case '(': {
                 Token* token = token_create(T_LBRAC, "\0", line_num, "\0");
                 token_list_add_token(tokenList, token);
                 current_char = lexer_advance(&index, text);
-                ++index;
                 break;
             }
             case ')': {
                 Token* token = token_create(T_RBRAC, "\0", line_num, "\0");
                 token_list_add_token(tokenList, token);
                 current_char = lexer_advance(&index, text);
-                ++index;
                 break;
             }
             default: {  // No acceptable characters were found so IllegalCharError is raised

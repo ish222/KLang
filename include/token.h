@@ -40,6 +40,7 @@ typedef struct {
     char* type;
     char* value;
     int line;
+    int num_type;
     char* error;
 } Token;
 

@@ -12,6 +12,7 @@ Token* token_create(int type, char* value, int line, char* error) {
     memset(token->value, 0, 10);
     strcpy(token->value, value);
     token->line = line;
+    token->num_type = type;
     token->error = (char*)malloc(32*sizeof(char));
     assert(token->error != NULL);
     memset(token->error, 0, 32);
