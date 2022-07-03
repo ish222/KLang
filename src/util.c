@@ -1,5 +1,14 @@
 #include "../include/util.h"
 
+void* xmalloc(const size_t size) {
+    void* ptr = malloc(size);
+    if (ptr == NULL) {
+        printf("Could not allocate memory.\n");
+        exit(1);
+    }
+    return ptr;
+}
+
 char* read_input() {
     char* buffer = (char*)malloc(32);  // Arbitrary sized buffer to hold the input
     if (!buffer) {

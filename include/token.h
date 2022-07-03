@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <assert.h>
 
+#include "util.h"
+
 // This is to easily track the type of the token
 typedef enum {
     T_VOID = 0,

@@ -1,20 +1,16 @@
 #include "../include/token.h"
 
 Token* token_create(int type, char* value, int line, char* error) {
-    Token* token = (Token*)malloc(sizeof(Token));
-    assert(token != NULL);
-    token->type = (char*)malloc(sizeof(char)*16);
-    assert(token->type != NULL);
+    Token* token = (Token*)xmalloc(sizeof(Token));
+    token->type = (char*)xmalloc(sizeof(char)*16);
     memset(token->type, 0, 16);
     strcpy(token->type, TokenName[type]);  // Copies the string of the type provided using the TokenName string array
-    token->value = (char*)malloc(10*sizeof(char));
-    assert(token->value != NULL);
+    token->value = (char*)xmalloc(10*sizeof(char));
     memset(token->value, 0, 10);
     strcpy(token->value, value);
     token->line = line;
     token->num_type = type;
-    token->error = (char*)malloc(32*sizeof(char));
-    assert(token->error != NULL);
+    token->error = (char*)xmalloc(32*sizeof(char));
     memset(token->error, 0, 32);
     strcpy(token->error, error);
     return token;
@@ -22,7 +18,7 @@ Token* token_create(int type, char* value, int line, char* error) {
 
 TokenList* token_list_create(TokenList* tokenList, int size) {
     tokenList->size = size;
-    tokenList->tokens = malloc(sizeof(Token)*size);
+    tokenList->tokens = xmalloc(sizeof(Token)*size);
     tokenList->index = 0;
     return tokenList;
 }

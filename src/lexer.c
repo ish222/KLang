@@ -1,11 +1,7 @@
 #include "../include/lexer.h"
 
 TokenList* create_tokens(char* text) {
-    TokenList* tokenList = (TokenList*)malloc(sizeof(TokenList));
-    if (!tokenList) {
-        printf("Could not allocate memory for TokenList.\n");
-        return NULL;
-    }
+    TokenList* tokenList = (TokenList*)xmalloc(sizeof(TokenList));
     tokenList = token_list_create(tokenList, (int)strlen(text));
     int index = -1;
     char current_char = lexer_advance(&index, text);  // Advances to the first character in the text
@@ -28,11 +24,7 @@ TokenList* create_tokens(char* text) {
             case '8':
             case '9':
             {
-                char* str_num = (char*)malloc(10*sizeof(char));  // Used to keep track of the number until the token is finalised
-                if (!str_num) {
-                    printf("Could not allocate memory for str_num");
-                    return NULL;
-                }
+                char* str_num = (char*)xmalloc(10*sizeof(char));  // Used to keep track of the number until the token is finalised
                 memset(str_num, 0, 10);
                 int dot_count = 0;  // Tracks the number of decimal places
                 const char* search_string = "0123456789.";  // Acceptable numeric characters searched for in the while loop condition below

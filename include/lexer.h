@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include "token.h"
+#include "util.h"
 
 TokenList* create_tokens(char* text);  // Creates token from input text provided
 char lexer_advance(int* index, const char* text);  // Advances to the next character in the text
