@@ -24,8 +24,7 @@ TokenList* create_tokens(char* text) {
             case '8':
             case '9':
             {
-                char* str_num = (char*)xmalloc(10*sizeof(char));  // Used to keep track of the number until the token is finalised
-                memset(str_num, 0, 10);
+                char* str_num = (char*)xmalloc_str(10*sizeof(char));  // Used to keep track of the number until the token is finalised
                 int dot_count = 0;  // Tracks the number of decimal places
                 const char* search_string = "0123456789.";  // Acceptable numeric characters searched for in the while loop condition below
                 while (current_char != '\0' && strchr(search_string, current_char) != NULL) {
@@ -106,15 +105,18 @@ char lexer_advance(int* index, const char* text) {
 }
 
 void print_tokens(TokenList* tokenList) {
+    printf("Lexer output:\n");
     for(int i = 0; i < tokenList->index; ++i) {
-        if (strncmp(tokenList->tokens[i]->error, "\0", 1) == 0) {
+        if (tokenList->tokens[i] != NULL && strncmp(tokenList->tokens[i]->error, "\0", 1) == 0) {
             if (strncmp(tokenList->tokens[i]->value, "\0", 1) != 0)
                 printf("(%s : %s)\n", tokenList->tokens[i]->type, tokenList->tokens[i]->value);
             else printf("(%s)\n", tokenList->tokens[i]->type);
         }
-        else {
-            printf("\n%s '%s' at line %d\n", tokenList->tokens[i]->error, tokenList->tokens[i]->value, tokenList->tokens[i]->line);
+        else if (tokenList->tokens[i] != NULL){
+            printf("\n%s '%c' at line %d\n", tokenList->tokens[i]->error, tokenList->tokens[i]->value[0], tokenList->tokens[i]->line);
             break;
         }
+        else printf("Unknown error when lexing.\n");
     }
+    printf("End of lexer output.\n\n");
 }

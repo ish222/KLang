@@ -2,16 +2,13 @@
 
 Token* token_create(int type, char* value, int line, char* error) {
     Token* token = (Token*)xmalloc(sizeof(Token));
-    token->type = (char*)xmalloc(sizeof(char)*16);
-    memset(token->type, 0, 16);
+    token->type = (char*)xmalloc_str(sizeof(char)*16);
     strcpy(token->type, TokenName[type]);  // Copies the string of the type provided using the TokenName string array
-    token->value = (char*)xmalloc(10*sizeof(char));
-    memset(token->value, 0, 10);
+    token->value = (char*)xmalloc_str(10*sizeof(char));
     strcpy(token->value, value);
     token->line = line;
     token->num_type = type;
-    token->error = (char*)xmalloc(32*sizeof(char));
-    memset(token->error, 0, 32);
+    token->error = (char*)xmalloc_str(32*sizeof(char));
     strcpy(token->error, error);
     return token;
 }
